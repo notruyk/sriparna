@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Happy 16th Birthday 🎂</title>
+<title>index.html</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -133,6 +133,12 @@ section{padding-top:82px;padding-bottom:82px}
 #lb{transition:opacity .5s ease,visibility .5s}
 #lb img{transform:scale(.96);transition:opacity .35s ease,transform .6s cubic-bezier(.22,.61,.36,1)}
 #lb.open img{transform:none}
+/* tighter top section on tall/wide screens (desktop mode on phones) */
+.hero{min-height:min(100vh,780px);padding-top:56px;padding-bottom:44px}
+.hero:before{position:static;display:block;max-width:100%;padding:0 12px;margin-bottom:24px}
+.hero + section{padding-top:36px}
+.hero:before{width:100%;box-sizing:border-box;text-align:center;line-height:1.8;padding:0 12px 0 calc(12px + .28em);text-wrap:balance}
+@media(max-width:600px){.hero:before{padding-left:calc(12px + .2em)}}
 </style>
 </head>
 <body class="locked">
@@ -150,7 +156,7 @@ section{padding-top:82px;padding-bottom:82px}
  <h1 class="rv" id="title"></h1>
  <p class="rv">24 · November · Sweet Sixteen ✨</p>
  <div class="cd rv" id="cd"></div>
- <div class="hint">scroll ↓</div>
+ 
 </section>
 
 <section>
@@ -189,7 +195,7 @@ section{padding-top:82px;padding-bottom:82px}
 const NAME = "Sriparnaa";            // her name, e.g. "Riya"
 const FROM = "Swarna"; // your name
 const BIRTHDAY = "2026-11-24T00:00:00";
-const MESSAGE = "Happy birthday! 🎂 I typed and deleted this message about five times because nothing sounded big enough, so I’ll just say it plainly: I’m really, really glad you exist. You have this way of making ordinary days feel lighter, and I don’t think you even realise you’re doing it. I hope sixteen is gentle with you. I hope you laugh until your stomach hurts, I hope the things you’ve been quietly wishing for finally find their way to you, and on the days that feel heavy, I hope you remember how many people are on your side, me included. Please stay exactly as kind and real as you are. Thank you for being in my life. Now go eat way too much cake, you’ve earned it. 💖";
+const MESSAGE = "Happy birthday! 🎂 I typed and deleted this message about five times because nothing sounded big enough, so I’ll just say it plainly: I’m really, really glad you exist. You have this way of making ordinary days feel lighter, and I don’t think you even realise you’re doing it. I hope sixteen is gentle with you. I hope you laugh until your stomach hurts, I hope the things you’ve been quietly wishing for finally find their way to you, and on the days that feel heavy, I hope you remember how many people are on your side, me included. Please stay exactly as kind and real as you are. Thank you for this awesome friendship we made! Now go enjoy your day. 💖✨ Don’t forget to study dumbb 😝";
 const WISHES = ["Laughter that makes your cheeks hurt","Every dream coming true","Results that make you proud","Friends who feel like family",
  "Peaceful, happy mornings","Courage to try new things","Adventures worth remembering","Days full of sunshine ☀️",
  "Always a reason to smile","Endless good music 🎶","Cozy rainy-day moments","No stress, lots of snacks 🍫",
@@ -219,11 +225,26 @@ $("#surprise").addEventListener("click", e => {
   e.currentTarget.textContent = open ? "A little message for you 💗" : "Open your last surprise ✨";
   e.currentTarget.setAttribute("aria-expanded",String(open));
 });
-// gallery
+// gallery captions: a different little compliment for each photo
+const PHOTO_CAPTIONS = [
+  "Gorgeous",
+  "Stunning",
+  "Radiant",
+  "Beautiful",
+  "Captivating",
+  "Elegant",
+  "Lovely",
+  "Adorable",
+  "Angelic",
+  "Charming",
+  "Mesmerizing",
+  "Dazzling"
+];
 const gal = $("#gal"), figs = [];
 PHOTOS.forEach((src,i)=>{
   const f = document.createElement("figure"); f.className = "glass rv"; f.tabIndex = 0; f.setAttribute("role","button"); f.setAttribute("aria-label",`Open memory ${i+1}`);
-  f.innerHTML = `<img loading="lazy" alt="A special birthday memory"><figcaption>One for the memory book ♡</figcaption>`; f.querySelector("img").src = src;
+  const caption = PHOTO_CAPTIONS[i % PHOTO_CAPTIONS.length];
+  f.innerHTML = `<img loading="lazy" alt="A special birthday memory"><figcaption>${caption}</figcaption>`; f.querySelector("img").src = src;
   f.onclick = () => show(i); f.onkeydown = e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); show(i); } }; figs.push(f);
 });
 
